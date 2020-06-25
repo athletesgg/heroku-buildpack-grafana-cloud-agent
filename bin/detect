@@ -1,0 +1,17 @@
+#!/bin/sh
+
+BUILD_DIR=$1
+
+if [ -f $BUILD_DIR/bin/agent ]; then
+  echo "Agent binary detected."
+else
+  echo "Missing agent binary."
+  exit 1
+fi
+
+if [ -f $BUILD_DIR/config.yml ]; then
+  echo "Agent config detected."
+else
+  echo "Missing agent config."
+  exit 1
+fi

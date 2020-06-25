@@ -1,0 +1,9 @@
+#!/bin/sh
+
+BUILD_DIR=$1
+
+cat << EOF
+---
+default_process_types:
+  web: $BUILD_DIR/bin/agent -config.file $BUILD_DIR/agent.yml
+EOF

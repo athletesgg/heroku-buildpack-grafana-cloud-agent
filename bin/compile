@@ -1,0 +1,16 @@
+#!/bin/sh
+
+BUILD_DIR=$1
+CACHE_DIR=$2
+
+if [[ -f $CACHE_DIR/agent.yml && cmp -s $BUILD_DIR/config.yml $CACHE_DIR/agent.yml ]]; then
+  echo "Reusing cached config.yml."
+  cp -f "$CACHE_DIR/agent.yml" "$BUILD_DIR/agent.yml"
+else
+  echo "Installing dependencies."
+  apt install -y gettext
+
+  echo "Substituting envrionment variables."
+  envsubst < $BUILD_DIR/config.yml > $BUILD_DIR/agent.yml
+  cp -f "$BUILD_DIR/agent.yml" "$CACHE_DIR/agent.yml"
+fi
